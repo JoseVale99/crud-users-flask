@@ -1,21 +1,21 @@
 from app import app
-from flask import jsonify, request
-from app.models.modelUser import  (Update,All,getDelete,
+from flask import jsonify,render_template, request
+from app.models.modelUser import  (Update,AllUsers,getDelete,
 getcatgoryID,getcatgoryPost,user_schema)
 
 
 #  rootes API REST
 
 # message of welcome
-@app.route('/', methods=['GET'])
-def index():
-    return jsonify({'Message':"Welcome back!"})
+# @app.route('/', methods=['GET'])
+# def index():
+#     return jsonify({'Message':"Welcome back!"})
              
 # GET all categories
-@app.route('/category',methods=['GET'])
+@app.route('/',methods=['GET'])
 def getCategories():
-    result = All()
-    return jsonify(result)
+    data = AllUsers()
+    return render_template('index.html', users = data)
 
 #  GET for ID
 @app.route('/category/<id>', methods=['GET'])      
