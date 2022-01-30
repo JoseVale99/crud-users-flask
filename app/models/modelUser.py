@@ -14,7 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma  = Marshmallow(app)
 
-
 # Crear la base de datos
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +34,7 @@ def Update(id,cat_name, cat_description):
     db.session.commit()
     return category 
 
-def All():
+def AllUsers():
     all_users = User.query.all()
     result = users_schema.dump(all_users) 
     return result
