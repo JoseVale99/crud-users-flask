@@ -13,7 +13,7 @@ Ahora para instalar las dependencias siempre utilizamos:
     $ pipenv install pymysql
     $ pipenv install
 ```
-# Configuraciónn
+# Configuración
 1. Active el entorno virtual y ejecute los comandos.
 ```bash
 export FLASK_APP=app
