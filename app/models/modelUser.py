@@ -26,12 +26,13 @@ class User(db.Model):
         self.name = name
         self.email = email
 
-def Update(id,cat_name, cat_description):
-    category = User.query.get(id)
-    category.cat_name = cat_name
-    category.cat_description = cat_description
+def Update(id,username,name, email):
+    user = User.query.get(id)
+    user.username = username
+    user.name = name
+    user.email = email
     db.session.commit()
-    return category 
+    return user 
 
 def AllUsers(page):
     per_page = 5
