@@ -22,6 +22,12 @@ def index(page):
 def add_user():
     return render_template('add.html')
 
+# show user 
+@app.route('/showuser/<id>', methods=['GET'])
+def showuser(id):
+    user = getUserID(id)
+    return render_template('show.html', user = user)
+
 #  POST - agregar usuario
 @app.route('/add_user/new_user', methods=['GET', 'POST'])
 def new_user():
@@ -33,23 +39,27 @@ def new_user():
         flash('¡Usuario agregado exitosamente!')
         return redirect(url_for('add_user'))
 
-#  GET - por ID
-@app.route('/user/<id>', methods=['GET'])      
-def getUserID(id):
-    user = getUserID(id)
-    return user_schema.jsonify(user)
 
-# Update category
-@app.route('/category/<id>',methods=['PUT'])
-def UpdateCategory(id):
-    data = request.get_json(force=True)
-    cat_name = data['cat_name']
-    cat_description = data['cat_description']
-    categoryUpdate = Update(id,cat_name,cat_description)
-    return jsonify("update successfully!")
+# view return update user
+@app.route('/update/<id>', methods=['GET'])
+def getUserupdate(id):
+    user = getUserID(id)
+    return render_template('update.html',user=user)
+
+# Update user
+@app.route('/update/<id>',methods=['POST'])
+def UpdateUser(id):
+     if request.method == 'POST':
+        username = request.form['username']
+        name = request.form['name']
+        email = request.form['email']
+        new_user = Update(id,username,name,email)
+        flash('¡Usuario actualizado exitosamente!')
+        return redirect(url_for('index'))
     
 # DELETE
 @app.route('/userdelete/<id>', methods = ['POST','GET'])
 def deleteUser(id):
     delete = getDeleteId(id)
+    flash('¡Usuario eliminado con éxito!')
     return redirect(url_for('index'))
