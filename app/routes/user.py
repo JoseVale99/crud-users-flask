@@ -1,37 +1,44 @@
+from unicodedata import name
 from app import app
-from flask import jsonify,render_template, request
-from app.models.modelUser import  (Update,AllUsers,getDelete,
-getcatgoryID,getcatgoryPost,user_schema)
+from flask import (jsonify,render_template, 
+                   request,redirect,url_for,flash)
+from app.models.modelUser import (Update,AllUsers,getDeleteId,
+getUserID,UserPost,user_schema)
 
 
 #  rootes API REST
 
-# message of welcome
-# @app.route('/', methods=['GET'])
-# def index():
-#     return jsonify({'Message':"Welcome back!"})
-             
-# GET all categories
-@app.route('/',methods=['GET'])
-def getCategories():
-    data = AllUsers()
-    return render_template('index.html', users = data)
 
-#  GET for ID
-@app.route('/category/<id>', methods=['GET'])      
-def getCategoryID(id):
-    category = getcatgoryID(id)
-    return user_schema.jsonify(category)
-    
-#  POST
-@app.route('/category', methods=['POST'])
-def categoryNew():
-    data = request.get_json(force=True)
-    cat_name = data['cat_name']
-    cat_description = data['cat_description']
-    new_category = getcatgoryPost(cat_name,cat_description)
-    return jsonify('add successfully new category!')
-    
+# GET - usuarios
+
+@app.route('/', methods=['GET'], defaults={"page": 1}) 
+@app.route('/<int:page>', methods=['GET'])
+
+def index(page):
+    users,pages = AllUsers(page)
+    return render_template('index.html', users = users, pages=pages)
+
+@app.route('/add_user')
+def add_user():
+    return render_template('add.html')
+
+#  POST - agregar usuario
+@app.route('/add_user/new_user', methods=['GET', 'POST'])
+def new_user():
+    if request.method == 'POST':
+        username = request.form['username']
+        name = request.form['name']
+        email = request.form['email']
+        new_user = UserPost(username,name,email)
+        flash('¡Usuario agregado exitosamente!')
+        return redirect(url_for('add_user'))
+
+#  GET - por ID
+@app.route('/user/<id>', methods=['GET'])      
+def getUserID(id):
+    user = getUserID(id)
+    return user_schema.jsonify(user)
+
 # Update category
 @app.route('/category/<id>',methods=['PUT'])
 def UpdateCategory(id):
@@ -42,7 +49,7 @@ def UpdateCategory(id):
     return jsonify("update successfully!")
     
 # DELETE
-@app.route('/category/<id>', methods=['DELETE'])
-def deleteCategory(id):
-    delete = getDelete(id)
-    return jsonify('delete successfully!')
+@app.route('/userdelete/<id>', methods = ['POST','GET'])
+def deleteUser(id):
+    delete = getDeleteId(id)
+    return redirect(url_for('index'))
