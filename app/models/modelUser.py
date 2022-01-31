@@ -19,10 +19,9 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(110))
     name  = db.Column(db.String(255))
-    email = db.Column(db.String(110))
+    email = db.Column(db.String(255))
 
-    def __init__(self, user_id, username,name,email):
-        self.user_id = user_id
+    def __init__(self,username,name,email):
         self.username = username 
         self.name = name
         self.email = email
@@ -34,21 +33,24 @@ def Update(id,cat_name, cat_description):
     db.session.commit()
     return category 
 
-def AllUsers():
-    all_users = User.query.all()
-    result = users_schema.dump(all_users) 
-    return result
+def AllUsers(page):
+    per_page = 5
+    all_users = User.query.paginate(page=page, per_page=per_page, error_out = False)
+    result = users_schema.dump(all_users.items)
+    return result,all_users
     
-def getcatgoryID(id):
+def getUserID(id):
     user = User.query.get(id)
     return user
 
-def getcatgoryPost(cat_name,cat_description):
-    new_user = User(cat_name,cat_description)
+def UserPost(username,name,email):
+    new_user = User(username,name,email)
+    print(new_user)
     db.session.add(new_user)
     db.session.commit()
     return new_user
-def getDelete(id):
+
+def getDeleteId(id):
     delete = User.query.get(id) 
     db.session.delete(delete)
     db.session.commit()
