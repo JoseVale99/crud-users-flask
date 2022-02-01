@@ -6,11 +6,6 @@
 ```
 Ahora para instalar las dependencias siempre utilizamos:
 ```bash
-    $ pipenv install flask
-    $ pipenv install flask-sqlalchemy
-    $ pipenv install flask-marshmallow
-    $ pipenv install marshmallow-sqlalchemy
-    $ pipenv install pymysql
     $ pipenv install
 ```
 # Configuración
