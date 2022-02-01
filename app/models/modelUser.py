@@ -8,7 +8,8 @@ from flask_marshmallow import Marshmallow
 # from flask import Flask
 # app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:123456789@localhost:3306/userDataBase' 
+# Aquí anota tu usuario,contraseña y  nombre de tu base de datos.
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://NOMBRE_DE_USUARIO:PASSWORD_AQUI@localhost:3306/NOMBRE_DE_TU_BASE_DATOS' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
