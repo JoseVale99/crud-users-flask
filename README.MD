@@ -33,6 +33,7 @@ export FLASK_APP=app
 ```
 El resultado al ejecutar las migraciones ser verá de la siguiente manera:
 <img src="Screenshot1.png">
+
 5. Finalmente solo ejecutar:
 ```bash
     $ flask run
