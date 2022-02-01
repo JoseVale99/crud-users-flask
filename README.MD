@@ -27,7 +27,7 @@ export FLASK_APP=app
     $ cd app
     $ cd models
 ```
-4. Ejecutar el archivo `modelsUser.py` en la terminal.
+4. Ejecutar el archivo `modelsUser.py` en la terminal (ver el [archivo](app/models/modelUser.py) contiene información relevante).
 ```bash
     $ python modelsUser.py
 ```
