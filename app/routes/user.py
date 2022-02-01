@@ -1,16 +1,10 @@
-from unicodedata import name
 from app import app
-from flask import (jsonify,render_template, 
+from flask import (render_template, 
                    request,redirect,url_for,flash)
 from app.models.modelUser import (Update,AllUsers,getDeleteId,
 getUserID,UserPost,user_schema)
 
-
-#  rootes API REST
-
-
 # GET - usuarios
-
 @app.route('/', methods=['GET'], defaults={"page": 1}) 
 @app.route('/<int:page>', methods=['GET'])
 
